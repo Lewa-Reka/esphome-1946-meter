@@ -1,0 +1,380 @@
+# Copyright 2025 Lewa-Reka <lewareka.yt@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+modbus_controller:
+  - id: ${device_id}_controller
+    address: ${modbus_address}
+    modbus_id: ${modbus_id}
+    setup_priority: -10
+    update_interval: 5s
+    command_throttle: 60ms
+    offline_skip_updates: 3
+
+sensor:
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Napięcie L1"
+    id: apv_siec_u_l1
+    register_type: read
+    address: 0x000
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    accuracy_decimals: 1
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Napięcie L2"
+    id: apv_siec_u_l2
+    register_type: read
+    address: 0x002
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    accuracy_decimals: 1
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Napięcie L3"
+    id: apv_siec_u_l3
+    register_type: read
+    address: 0x004
+    unit_of_measurement: "V"
+    device_class: voltage
+    state_class: "measurement"
+    accuracy_decimals: 1
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Prąd L1"
+    id: apv_siec_i_l1
+    register_type: read
+    address: 0x00C
+    unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Prąd L2"
+    id: apv_siec_i_l2
+    register_type: read
+    address: 0x00E
+    unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Prąd L3"
+    id: apv_siec_i_l3
+    register_type: read
+    address: 0x010
+    unit_of_measurement: "A"
+    device_class: current
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Czynna L1"
+    id: apv_siec_p_l1
+    register_type: read
+    address: 0x012
+    unit_of_measurement: "kW"
+    device_class: power
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Czynna L2"
+    id: apv_siec_p_l2
+    register_type: read
+    address: 0x014
+    unit_of_measurement: "kW"
+    device_class: power
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Czynna L3"
+    id: apv_siec_p_l3
+    register_type: read
+    address: 0x016
+    unit_of_measurement: "kW"
+    device_class: power
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Czynna"
+    id: apv_siec_p
+    register_type: read
+    address: 0x018
+    unit_of_measurement: "kW"
+    device_class: power
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Bierna L1"
+    id: apv_siec_q_l1
+    register_type: read
+    address: 0x01A
+    unit_of_measurement: "var"
+    device_class: reactive_power
+    state_class: "measurement"
+    accuracy_decimals: 0
+    value_type: FP32
+    filters:
+      - multiply: 1000
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Bierna L2"
+    id: apv_siec_q_l2
+    register_type: read
+    address: 0x01C
+    unit_of_measurement: "var"
+    device_class: reactive_power
+    state_class: "measurement"
+    accuracy_decimals: 0
+    value_type: FP32
+    filters:
+      - multiply: 1000
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Bierna L3"
+    id: apv_siec_q_l3
+    register_type: read
+    address: 0x01E
+    unit_of_measurement: "var"
+    device_class: reactive_power
+    state_class: "measurement"
+    accuracy_decimals: 0
+    value_type: FP32
+    filters:
+      - multiply: 1000
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Moc Bierna"
+    id: apv_siec_q
+    register_type: read
+    address: 0x020
+    unit_of_measurement: "var"
+    device_class: reactive_power
+    state_class: "measurement"
+    accuracy_decimals: 0
+    value_type: FP32
+    filters:
+      - multiply: 1000
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Współczynnik Mocy L1"
+    id: apv_siec_pf_l1
+    register_type: read
+    address: 0x02A
+    device_class: power_factor
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Współczynnik Mocy L2"
+    id: apv_siec_pf_l2
+    register_type: read
+    address: 0x02C
+    device_class: power_factor
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Współczynnik Mocy L3"
+    id: apv_siec_pf_l3
+    register_type: read
+    address: 0x02E
+    device_class: power_factor
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Współczynnik Mocy"
+    id: apv_siec_pf
+    register_type: read
+    address: 0x030
+    device_class: power_factor
+    state_class: "measurement"
+    accuracy_decimals: 3
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Częstotliwość"
+    id: apv_siec_f
+    register_type: read
+    address: 0x032
+    unit_of_measurement: "Hz"
+    device_class: frequency
+    state_class: "measurement"
+    accuracy_decimals: 2
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Energia Czynna Pobrana"
+    id: apv_siec_ea_buy
+    register_type: read
+    address: 0x034
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Energia Czynna Oddana"
+    id: apv_siec_ea_sell
+    register_type: read
+    address: 0x036
+    unit_of_measurement: "kWh"
+    device_class: energy
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Energia Bierna Pobrana"
+    id: apv_siec_er_buy
+    register_type: read
+    address: 0x038
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Energia Bierna Oddana"
+    id: apv_siec_er_sell
+    register_type: read
+    address: 0x03A
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: FP32
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Bierna Q1"
+    id: apv_siec_q1
+    register_type: read
+    address: 0x110
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: S_DWORD
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Bierna Q2"
+    id: apv_siec_q2
+    register_type: read
+    address: 0x112
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: S_DWORD
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Bierna Q3"
+    id: apv_siec_q3
+    register_type: read
+    address: 0x114
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: S_DWORD
+    filters:
+      - multiply: 0.01
+
+  - platform: modbus_controller
+    modbus_controller_id: ${device_id}_controller
+    device_id: ${device_id}
+    name: "Sieć Bierna Q4"
+    id: apv_siec_q4
+    register_type: read
+    address: 0x116
+    unit_of_measurement: "kvarh"
+    state_class: "total_increasing"
+    accuracy_decimals: 2
+    value_type: S_DWORD
+    filters:
+      - multiply: 0.01
